@@ -1,0 +1,76 @@
+﻿
+/*=======================================
+    GENERAL STYLES
+==================================================*/
+body {
+   
+          
+    font-size:18px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    background-color: #BDDCFF;
+}
+
+.pad-top {
+    padding-top:60px;
+}
+/*=======================================
+    HEAD SECTION STYLES
+==================================================*/
+.domain-head {
+    font-size:50px;
+    font-weight:900;
+    display:block;
+}
+
+.add-sec {
+    padding-top:40px;
+    display:block;
+}
+
+/*=======================================
+    TEXT SECTION STYLES
+==================================================*/
+.head-line {
+    background:#009aff;
+    color:#fff; 
+    text-align:center;
+    margin:40px 0px 0px 0px;
+    padding:40px;
+    font-size:40px;
+}
+.btn-div {
+    background-color:#00c1ff;
+    font-weight:600;
+    color:#000;
+    letter-spacing:1px;
+}
+.copyrights{
+	text-indent:-9999px;
+	height:0;
+	line-height:0;
+	font-size:0;
+	overflow:hidden;
+}
+/*=======================================
+    INFO SECTION STYLES
+==================================================*/
+.f-30 {
+    font-size:30px;
+    display:block;
+}
+.more-domain a{
+    text-decoration:none;
+    color:#000;
+    display:block;
+}
+.sts-div {
+    font-size:60px;
+    font-weight:900;
+    display:block;
+}
+.link-bt,.link-bt:hover {
+    color:#000;
+    text-decoration:none;
+    font-size:15px;
+    text-decoration:none;
+}
