@@ -20,7 +20,7 @@ var unitMult = 1.0;                 // units multiplier (1 = mm)
 var decPl = 1;                      // units decimal places
 var firstLoad = true;
 
-var defaultInitQuery = 'title=7-hole+C5&diamEmb=10&cents1=601&diam1=8&cents2=386&diam2=8.5&cents3=204&diam3=9&cents4=0&diam4=7&cents5=-102&diam5=9.5&cents6=-309&diam6=10&cents7=-498&diam7=5.5&cents8=-599&diam8=11.4561&cents9=-814&diam9=11.0976&cents10=-996&diam10=12.273&cents11=-1200&diam11=9.1133&cents12=-1302&diam12=12.7&centsEnd=-599&cents13=-1509&fHoles=7&keyNote=72&keyFT=0&borD=19&walW=1.25&lipCov=0&unitMult=1.0&decPl=1&showSpc=0&showFreqs=0';
+var defaultInitQuery = 'title=7-hole+C5&diamEmb=10¢s1=601&diam1=8¢s2=386&diam2=8.5¢s3=204&diam3=9¢s4=0&diam4=7¢s5=-102&diam5=9.5¢s6=-309&diam6=10¢s7=-498&diam7=5.5¢s8=-599&diam8=11.4561¢s9=-814&diam9=11.0976¢s10=-996&diam10=12.273¢s11=-1200&diam11=9.1133¢s12=-1302&diam12=12.7¢sEnd=-599¢s13=-1509&fHoles=7&keyNote=72&keyFT=0&borD=19&walW=1.25&lipCov=0&unitMult=1.0&decPl=1&showSpc=0&showFreqs=0';
 
 var isTouchDevice = 'ontouchstart' in document.documentElement;
 
@@ -248,20 +248,21 @@ function midiNumberToPitch(num) {
 }
 
 function calculateHoleFreqs() {
-    var keyPitch = midiNumberToPitch(parseInt($('#keyNote').val()) + 0.01 * parseInt($('#keyFT').val()));
-     for (i = 1; i <= maxHoleCount + 1; i++) {
-        var j = holeCount + 1 - i;
-        var centVal = $('input#cents' + i + '').getValue();
-        var freq = keyPitch * Math.pow(2, centVal / 1200.0);
+  var keyPitch = midiNumberToPitch(parseInt($('#keyNote').val())+0.01*parseInt($('#keyFT').val()));
+    for (i=1; i<=maxHoleCount+1; i++) {
+    var j = holeCount+1-i;
+        var centVal =  $('input#cents' + i + '').getValue();
+        var freq = keyPitch * Math.pow(2, centVal/1200.0);
         $('input#freq' + i + '').setValue(freq);
-        if (j > 0) {
+		 if (j > 0) {
             fhFs[j] = freq;
-             fhDs[j] = $('input#diam' + i + '').getValue();
+            fhDs[j] = $('input#diam' + i + '').getValue();
         }
-    }
+
+  }
     var j = holeCount + 1 - i;
-    var centVal = $('input#centsEnd').getValue();
-    endF = keyPitch * Math.pow(2, centVal / 1200.0);
+    var centVal =  $('input#centsEnd').getValue();
+    endF = keyPitch * Math.pow(2, centVal/1200.0);
     $('input#freqEnd').setValue(endF);
 }
 
@@ -302,7 +303,7 @@ function drawFlute() {
 	var fluteLength = embX + extW * 1.5;
 	var scale = cW / fluteLength;
 	var ctx = canvas.getContext('2d');
-    // ctx.clearRect(0, 0, cW, canvas.height); // Clear the canvas  I removed this
+    ctx.clearRect(0, 0, cW, canvas.height); // Clear the canvas
 	ctx.fillStyle = '#a52a2a';
     ctx.fillRect(0, cH_2 - 0.5 * scale * extW, cW, scale * extW);
 
@@ -521,37 +522,40 @@ function initControls() {
 function calcFlute() {
     $('input').removeClass('calc-error');
     unitMult = parseFloat($('select#unitMult').val());
-    borD = parseFloat($('#innerDiameter').val());// get from my input
-    walW = parseFloat($('#wallThickness').val());// get from my input
+    borD = parseFloat($('#innerDiameter').val());
+    walW = parseFloat($('#wallThickness').val());
     decPl = parseInt($('select#decPl').val());
     var scaleEmb = 1 - 0.01 * $('input#lipCov').getValue();
     actEmbD = $('input#diamEmb').getValue();
     adjEmbD = scaleEmb * actEmbD;
-    calculateHoleFreqs();
-    findLocations2(); // use your existing function here
-
-    $('input#resultEmb').setValue((endX - embX) / unitMult);
+	calculateHoleFreqs();
+    findLocations2();
+     $('input#resultEmb').setValue((endX - embX) / unitMult);
     if (actEmbD > borD * 0.9) {
         $('input#diamEmb').addClass('calc-error');
         $('input#resultEmb').setValue(NaN);
     }
-      for (let j = 1; j <= holeCount; j++) {
-        var i = holeCount + 1 - j;
+
+
+    for (let j = 1; j <= holeCount; j++) {
+      var i = holeCount + 1 - j;
         var distance = (endX - fhXs[i]) / unitMult;
         $('input#result' + j).setValue(distance);
          if (fhDs[i] > borD * 0.9) {
             $('input#diam' + j).addClass('calc-error');
             $('input#result' + j).setValue(NaN);
          }
-		  $('input#spacing' + j + '').setValue(i ==1 ? distance :  (fhXs[i-1] - fhXs[i]) / unitMult)
 
-		  $('input#cutoff' + j + '').setValue(cutoffForHole(i));
+        $('input#spacing' + j).setValue(i == 1 ? distance : (fhXs[i - 1] - fhXs[i]) / unitMult);
+         $('input#cutoff' + j + '').setValue(cutoffForHole(i));
     }
 
 
-  $('input#resultEnd').setValue(endX-endX); // = 0
-  drawFlute();
-  updateURL();
+
+    $('input#resultEnd').setValue(endX - endX);
+
+    drawFlute();
+    updateURL();
 }
 
 function updateURL() {
@@ -576,6 +580,6 @@ $(function() {
     $('#calculate-btn').click(function(){
         calcFlute();
     })
-	calcFlute(); // Initial calculation
+	 calcFlute();
   setTimeout(checkResponsiveTableScroll, 600);
 });
