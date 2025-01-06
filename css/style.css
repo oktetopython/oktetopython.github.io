@@ -1,17 +1,166 @@
-.container {
-    max-width: 1200px;
-    padding: 20px;
-}
+/* 变量定义 */
+root {
+ --primary-color: #2c3e50;
+ --secondary-color: #3498db;
+ --background-color: #f5f6fa;
+ --border-color: #dcdde1;
+ --text-color: #2d3436;
+ --error-color: #e74c3c;
+ --success-color: #27ae60;
+ 
+ --spacing-xs: 0.25rem;
+ --spacing-sm: 0.5rem;
+ --spacing-md: 1rem;
+ --spacing-lg: 2rem;
+ 
+ --border-radius: 4px;
+ --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
-#fluteCanvas {
-    width: 100%;
-    height: 200px;rder: 1px solid #ccc;
+/* 基础样式 */
+ {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+
+body {
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ line-height: 1.6;
+ color: var(--text-color);
+ background: var(--background-color);
+
+.container {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: var(--spacing-md);
+
+/* 标题样式 */
+1 {
+ color: var(--primary-color);
+ text-align: center;
+ margin-bottom: var(--spacing-lg);
+ font-size: 2rem;
+
+/* 计算器布局 */
+calculator {
+ display: grid;
+ grid-template-columns: 1fr 2fr;
+ gap: var(--spacing-lg);
+ background: white;
+ padding: var(--spacing-lg);
+ border-radius: var(--border-radius);
+ box-shadow: var(--box-shadow);
+
+/* 输入区域样式 */
+input-section {
+ display: flex;
+ flex-direction: column;
+ gap: var(--spacing-md);
 
 .form-group {
-   margin-bottom: 1rem;
+ display: flex;
+ flex-direction: column;
+ gap: var(--spacing-xs);
 
-.table th {
-   background-color: #f8f9fa;
+label {
+ font-weight: 500;
+ color: var(--primary-color);
 
-.btn-primary {
-   margin-top: 1rem;
+input, select {
+ padding: var(--spacing-sm);
+ border: 1px solid var(--border-color);
+ border-radius: var(--border-radius);
+ font-size: 1rem;
+ transition: border-color 0.2s;
+
+input:focus, select:focus {
+ outline: none;
+ border-color: var(--secondary-color);
+
+input[type="number"] {
+ width: 100%;
+
+/* 结果区域样式 */
+result-section {
+ display: flex;
+ flex-direction: column;
+ gap: var(--spacing-md);
+
+#flute-canvas {
+ width: 100%;
+ height: 200px;
+ background: white;
+ border: 1px solid var(--border-color);
+ border-radius: var(--border-radius);
+
+/* 结果表格样式 */
+results-table {
+ width: 100%;
+ border-collapse: collapse;
+
+#results-table th,
+results-table td {
+ padding: var(--spacing-sm);
+ border: 1px solid var(--border-color);
+ text-align: left;
+
+#results-table th {
+ background: var(--primary-color);
+ color: white;
+
+#results-table tr:nth-child(even) {
+ background: var(--background-color);
+
+/* 错误状态 */
+error {
+ border-color: var(--error-color) !important;
+
+.error-message {
+ color: var(--error-color);
+ font-size: 0.875rem;
+ margin-top: var(--spacing-xs);
+
+/* 响应式设计 */
+media (max-width: 768px) {
+ .calculator {
+   grid-template-columns: 1fr;
+ }
+ 
+ .container {
+   padding: var(--spacing-sm);
+ }
+ 
+ h1 {
+   font-size: 1.5rem;
+ }
+
+/* 动画效果 */
+keyframes fadeIn {
+ from { opacity: 0; }
+ to { opacity: 1; }
+
+.fade-in {
+ animation: fadeIn 0.3s ease-in;
+
+/* 工具类 */
+hidden {
+ display: none;
+
+.text-center {
+ text-align: center;
+
+.mt-1 { margin-top: var(--spacing-sm); }
+mt-2 { margin-top: var(--spacing-md); }
+mt-3 { margin-top: var(--spacing-lg); }
+/* 打印样式 */
+media print {
+ .calculator {
+   box-shadow: none;
+ }
+ 
+ input, select {
+   border: none;
+ }
+ 
+ #flute-canvas {
+   border: none;
+ }
